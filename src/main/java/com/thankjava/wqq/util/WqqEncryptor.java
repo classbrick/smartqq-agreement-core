@@ -8,21 +8,15 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.thankjava.toolkit.resource.SourceLoader;
-import com.thankjava.wqq.core.action.LoginAction;
 
 public class WqqEncryptor {
 
-	private static final Logger logger = LoggerFactory.getLogger(LoginAction.class);
+	private static final Logger logger = LoggerFactory.getLogger(WqqEncryptor.class);
 
 	/**
 	 * 计算一些接口的hash值
-	 * <p>
-	 * Function: hash
-	 * </p>
-	 * <p>
-	 * Description:
-	 * </p>
-	 * 
+	 * <p>Function: hash</p>
+	 * <p>Description:</p>
 	 * @author zhaoxy@thankjava.com
 	 * @date 2016年12月21日 下午6:25:04
 	 * @version 1.0
@@ -54,13 +48,13 @@ public class WqqEncryptor {
 	* @author zhaoxy@thankjava.com
 	* @date 2017年2月13日 下午6:11:06
 	* @version 1.0
-	* @param str
+	* @param qrsig
 	* @return
 	 */
-	public static String hashForCheckQrStatus(String str) {
+	public static String hashForCheckQrStatus(String qrsig) {
 		long hash = 0;
-		for (int i = 0, length = str.length(); i < length; i++) {
-			hash += hash * 32 + str.charAt(i);
+		for (int i = 0, length = qrsig.length(); i < length; i++) {
+			hash += hash * 32 + qrsig.charAt(i);
 		}
 		return String.valueOf(2147483647 & hash);
 	}
