@@ -73,7 +73,7 @@ public class LoginAction {
 		Matcher matcher = pattern.matcher(content);
 		if(matcher.find()){
 			String[] values = new String[matcher.groupCount()];
-			for(int i = 1 ; i < matcher.groupCount(); i ++){
+			for(int i = 1,len = matcher.groupCount(); i < len; i ++){
 				values[i - 1] = matcher.group(i);
 			}
 			return values;
