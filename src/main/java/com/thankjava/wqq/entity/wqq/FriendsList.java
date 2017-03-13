@@ -25,6 +25,15 @@ public class FriendsList {
 		return friends.get(uin);
 	}
 	
+	/**
+	 * 获取分组数据
+	* <p>Function: getCategories</p>
+	* <p>Description: </p>
+	* @author zhaoxy@thankjava.com
+	* @date 2017年3月10日 下午2:59:10
+	* @version 1.0
+	* @return
+	 */
 	public Map<Integer, CategorieInfo> getCategories() {
 		return categories;
 	}

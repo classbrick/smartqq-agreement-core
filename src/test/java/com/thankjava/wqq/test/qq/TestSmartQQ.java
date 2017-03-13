@@ -2,15 +2,19 @@ package com.thankjava.wqq.test.qq;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.imageio.ImageIO;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.thankjava.toolkit3d.fastjson.FastJson;
 import com.thankjava.wqq.SmartQQClient;
 import com.thankjava.wqq.WQQClient;
 import com.thankjava.wqq.entity.msg.PollMsg;
+import com.thankjava.wqq.entity.wqq.FriendInfo;
 import com.thankjava.wqq.extend.CallBackListener;
 import com.thankjava.wqq.extend.ListenerAction;
 import com.thankjava.wqq.extend.NotifyListener;
@@ -66,6 +70,10 @@ public class TestSmartQQ {
 				
 				// 登陆成功
 				logger.debug("登录完成");
+				Map<Long, FriendInfo> friends = smartQQClient.getFriendsList(false).getFriends();
+				for (Entry<Long, FriendInfo> friend : friends.entrySet()) {
+					logger.info(FastJson.toJsonString(friend.getValue()));
+				}
 			}
 		});
 		

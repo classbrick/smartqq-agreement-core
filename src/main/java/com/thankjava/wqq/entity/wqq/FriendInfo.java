@@ -37,6 +37,7 @@ public class FriendInfo {
 	private Integer face;
 	
 	// QQ号码 QQ号码需要经过特定的接口后才会有
+	@JSONField(name = "account")
 	private Integer qq;
 	
 	public boolean isVip() {

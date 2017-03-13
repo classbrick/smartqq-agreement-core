@@ -24,6 +24,7 @@ public enum RequestUrls {
 	send_buddy_msg2("https://d1.web2.qq.com/channel/send_buddy_msg2", "发送个人信息"),
 	send_qun_msg2("https://d1.web2.qq.com/channel/send_qun_msg2", "发送群消息"),
 	send_discu_msg2("https://d1.web2.qq.com/channel/send_discu_msg2", "发送讨论组信息"),
+	get_friend_uin2("http://s.web2.qq.com/api/get_friend_uin2", "获取好友qq号信息"),
 	
 	// ====referer
 	referer_check_qrcode_status("https://ui.ptlogin2.qq.com/cgi-bin/login?daid=164&"

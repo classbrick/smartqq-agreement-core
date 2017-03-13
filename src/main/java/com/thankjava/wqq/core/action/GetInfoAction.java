@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.thankjava.wqq.core.request.Request;
 import com.thankjava.wqq.core.request.http.GetDiscusList;
+import com.thankjava.wqq.core.request.http.GetFriendUin2;
 import com.thankjava.wqq.core.request.http.GetGroupNameListMask2;
 import com.thankjava.wqq.core.request.http.GetOnlineBuddies2;
 import com.thankjava.wqq.core.request.http.GetRecentList2;
@@ -43,7 +44,7 @@ public class GetInfoAction {
 	/**
 	 * 获取好友列表
 	* <p>Function: getFriendsList</p>
-	* <p>Description: </p>
+	* <p>Description: 内部包含获取用户好友信息&获取好友在线状态&获取好友QQ号码</p>
 	* @author zhaoxy@thankjava.com
 	* @date 2016年12月22日 下午1:34:35
 	* @version 1.0
@@ -174,6 +175,17 @@ public class GetInfoAction {
 				friendInfo = friendInfos.get(uin);
 				friendInfo = FastJson.appendObject(obj.toString(), friendInfo);
 			}
+			
+			// 循环获取好友QQ信息
+			String getFriendUinContent;
+			JSONObject getFriendUinJson;
+			for (Map.Entry<Long, FriendInfo> friend : friendInfos.entrySet()) {
+				getFriendUinContent = new GetFriendUin2(friend.getKey()).doRequest(null).getContent();
+				logger.debug("获取好友QQ号码返回数据 " + getFriendUinContent);
+				getFriendUinJson = JSONObject.parseObject(getFriendUinContent);
+				FastJson.appendObject(getFriendUinJson.getJSONObject("result").toJSONString(),friend.getValue());
+			}
+			
 			friendsList.setFriends(friendInfos);
 			session.setFriendsList(friendsList);
 //		}
@@ -262,5 +274,9 @@ public class GetInfoAction {
 			session.setSelfInfo(selfInfo);
 //		}
 		return selfInfo;
+	}
+	public static void main(String[] args) {
+		JSONObject content = JSONObject.parseObject("{\"retcode\":0,\"result\":{\"uiuin\":\"\",\"account\":206834070,\"uin\":1427844719}}");
+		System.out.println(content.getJSONObject("result"));
 	}
 }

@@ -6,20 +6,16 @@ import com.thankjava.toolkit3d.http.async.entity.Headers;
 import com.thankjava.toolkit3d.http.async.entity.Parameters;
 import com.thankjava.toolkit3d.http.async.entity.RequestParams;
 import com.thankjava.toolkit3d.http.async.entity.ResponseParams;
-import com.thankjava.wqq.consts.ConstsParams;
 import com.thankjava.wqq.consts.RequestUrls;
-import com.thankjava.wqq.entity.msg.SendMsg;
 import com.thankjava.wqq.extend.CallBackListener;
 import com.thankjava.wqq.extend.ListenerAction;
 
-import com.alibaba.fastjson.JSONObject;
+public class GetFriendUin2 extends BaseHttpService {
 
-public class SendBuddyMsg2 extends BaseHttpService{
-
-	private SendMsg sendMsg;
+	private long uin;
 	
-	public SendBuddyMsg2(SendMsg sendMsg) {
-		this.sendMsg = sendMsg;
+	public GetFriendUin2(long uin){
+		this.uin = uin;
 	}
 	
 	@Override
@@ -36,16 +32,17 @@ public class SendBuddyMsg2 extends BaseHttpService{
 
 	@Override
 	protected RequestParams buildRequestParams() {
-		JSONObject jsonObject = new JSONObject(); 
-		jsonObject.put("to", sendMsg.getTo()); //
-		jsonObject.put("content", sendMsg.getContent().toSendMsg()); //
-		jsonObject.put("face", 546); // 这个其实没啥用
-		jsonObject.put("clientid", ConstsParams.CLIENT_ID);
-		jsonObject.put("msg_id", msgId.incrementAndGet());
-		jsonObject.put("psessionid", session.getPsessionid());
-		Parameters params = new Parameters("r", jsonObject.toJSONString());
-		Headers headers = new Headers(HeaderName.referer.name, RequestUrls.referer_about_msg.url);
-		return new RequestParams(RequestUrls.send_buddy_msg2.url, HttpMethod.post, params, headers);
+		Parameters params = new Parameters("t", String.valueOf(System.currentTimeMillis() / 1000));
+		params.append("tuin", String.valueOf(uin));
+		params.append("type", "1");
+		params.append("vfwebqq", session.getVfwebqq());
+		Headers headers = new Headers(HeaderName.referer.name, RequestUrls.referer_getvfwebqq.url);
+		return new RequestParams(
+				RequestUrls.get_friend_uin2.url, 
+				HttpMethod.get, 
+				params,
+				headers
+			);
 	}
 
 }
