@@ -155,4 +155,4 @@ public class NotifyHander {
 ###bug fix
 
         1.0.1 修复腾讯修改二维码校验流程带来的影响
-        
+        1.0.2 新增查询用户QQ号码功能
